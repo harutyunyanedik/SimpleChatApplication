@@ -43,10 +43,11 @@ import androidx.navigation.NavHostController
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.presentation.feature.auth.registation.RegistrationViewModel
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.shared.utils.activityViewModel
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
-import com.example.mangochatapplication.presentation.shared.views.AvatarView
+import com.example.mangochatapplication.presentation.shared.views.CenterTitledToolbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -54,7 +55,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun RegistrationScreen(
     viewModel: RegistrationViewModel = koinViewModel(),
-    profileViewModel: ProfileViewModel = koinViewModel(),
+    profileViewModel: ProfileViewModel = activityViewModel(),
     navController: NavHostController?,
     phone: String?
 ) {
@@ -88,8 +89,18 @@ fun RegistrationScreen(
             modifier = Modifier
                 .weight(1f, fill = false)
         ) {
-            AvatarView(modifier = Modifier)
+            CenterTitledToolbar("Registration", containerColor = MaterialTheme.colorScheme.background) {
+                navController?.navigateUp()
+            }
             Spacer(modifier = Modifier.height(24.dp))
+            RegistrationTextField(
+                state.phone ?: "", "phone", onValueChanged = {
+                    viewModel.addIntent(RegistrationIntent.UserNameValueChanged(it))
+                },
+                focusRequester = focusRequester,
+                enabled = false
+            )
+            Spacer(modifier = Modifier.height(8.dp))
             RegistrationTextField(
                 state.nameValue ?: "", "name", state.nameErrorText, onValueChanged = {
                     viewModel.addIntent(RegistrationIntent.NameValueChanged(it))
@@ -164,12 +175,13 @@ fun RegistrationScreen(
 fun RegistrationTextField(
     value: String,
     hint: String,
-    errorText: String?,
+    errorText: String? = null,
     onFocusChanged: (Boolean) -> Unit = {},
     keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current,
     focusManager: FocusManager = LocalFocusManager.current,
     onValueChanged: (String) -> Unit = {},
-    focusRequester: FocusRequester = FocusRequester()
+    focusRequester: FocusRequester = FocusRequester(),
+    enabled: Boolean = true
 ) {
     var isFocused by remember { mutableStateOf(false) }
     Column(
@@ -177,6 +189,7 @@ fun RegistrationTextField(
             .focusRequester(focusRequester)
     ) {
         OutlinedTextField(
+            enabled = enabled,
             value = value,
             onValueChange = onValueChanged,
             modifier = Modifier

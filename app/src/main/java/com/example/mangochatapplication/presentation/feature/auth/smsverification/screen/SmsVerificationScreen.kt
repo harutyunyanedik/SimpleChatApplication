@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.SmsVerificationViewModel
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.shared.utils.activityViewModel
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
@@ -44,7 +45,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun SmsVerificationScreen(
     viewModel: SmsVerificationViewModel = koinViewModel(),
-    profileViewModel: ProfileViewModel = koinViewModel(),
+    profileViewModel: ProfileViewModel = activityViewModel(),
     navController: NavHostController?,
     phone: String?,
     countryCode: String?

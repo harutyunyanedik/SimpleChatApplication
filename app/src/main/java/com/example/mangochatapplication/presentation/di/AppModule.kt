@@ -5,11 +5,13 @@ import com.example.mangochatapplication.data.MangoChatNetworkPort
 import com.example.mangochatapplication.data.MangoChatRepositoryImpl
 import com.example.mangochatapplication.data.di.tokenDataStoreQualifierName
 import com.example.mangochatapplication.domain.MangoChatRepository
+import com.example.mangochatapplication.presentation.MainActivity
 import com.example.mangochatapplication.presentation.feature.auth.registation.RegistrationViewModel
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.SmsVerificationViewModel
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
 val appModule = module {

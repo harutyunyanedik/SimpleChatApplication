@@ -13,4 +13,6 @@ sealed class RegistrationIntent : BaseIntent {
     data class UserNameValueChanged(val value: String) : RegistrationIntent()
 
     data object Validate: RegistrationIntent()
+
+    data class SaveToken(val accessToken: String?, val refreshToken: String?) : RegistrationIntent()
 }

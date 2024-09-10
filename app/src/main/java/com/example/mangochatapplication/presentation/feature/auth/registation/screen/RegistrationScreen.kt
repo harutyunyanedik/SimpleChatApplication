@@ -43,13 +43,21 @@ import androidx.navigation.NavHostController
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.presentation.feature.auth.registation.RegistrationViewModel
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
 import com.example.mangochatapplication.presentation.shared.views.AvatarView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RegistrationScreen(viewModel: RegistrationViewModel = koinViewModel(), navController: NavHostController?, phone: String?) {
+fun RegistrationScreen(
+    viewModel: RegistrationViewModel = koinViewModel(),
+    profileViewModel: ProfileViewModel = koinViewModel(),
+    navController: NavHostController?,
+    phone: String?
+) {
     val focusRequester = remember { FocusRequester() }
     val state = viewModel.registrationState.collectAsState().value
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -114,7 +122,9 @@ fun RegistrationScreen(viewModel: RegistrationViewModel = koinViewModel(), navCo
                 when (it) {
                     is RegistrationEffect.Registered -> {
                         when {
-                            it.data != null && it.error == null -> navController?.navigate(Screens.Chat.route)
+                            it.data != null && it.error == null -> {
+                                viewModel.addIntent(RegistrationIntent.SaveToken(accessToken = it.data.accessToken, refreshToken = it.data.refreshToken))
+                            }
 
                             it.error != null -> {
                                 Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
@@ -128,6 +138,20 @@ fun RegistrationScreen(viewModel: RegistrationViewModel = koinViewModel(), navCo
                             safeLet(registrationState.nameValue, registrationState.usernameValue, registrationState.phone) { name, username, phone ->
                                 viewModel.addIntent(RegistrationIntent.Register(name, phone, username))
                             }
+                        }
+                    }
+
+                    RegistrationEffect.TokensSaved -> profileViewModel.addIntent(ProfileIntent.GetMe)
+                }
+            }
+        }
+        scope.launch {
+            profileViewModel.profileEffects.collectLatest {
+                when (it) {
+                    is ProfileEffect.ProfileGot -> {
+                        when {
+                            it.data != null && it.error == null -> navController?.navigate(Screens.Chat.route)
+                            it.error != null && it.data == null -> Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

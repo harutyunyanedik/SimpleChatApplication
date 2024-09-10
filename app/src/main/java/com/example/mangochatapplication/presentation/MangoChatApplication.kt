@@ -1,8 +1,8 @@
 package com.example.mangochatapplication.presentation
 
 import android.app.Application
+import com.example.mangochatapplication.data.di.dataModule
 import com.example.mangochatapplication.presentation.di.appModule
-import com.example.mangochatapplication.presentation.di.authModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -16,7 +16,7 @@ class MangoChatApplication : Application() {
         startKoin {
             androidContext(this@MangoChatApplication)
             androidLogger(Level.DEBUG)
-            modules(appModule, authModule)
+            modules(dataModule, appModule)
         }
     }
 }

@@ -31,6 +31,9 @@ import androidx.navigation.NavHostController
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.SmsVerificationViewModel
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
 import com.example.mangochatapplication.presentation.shared.views.LoadingButton
 import com.example.mangochatapplication.presentation.shared.views.PinView
 import kotlinx.coroutines.delay
@@ -39,7 +42,13 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun SmsVerificationScreen(viewModel: SmsVerificationViewModel = koinViewModel(), navController: NavHostController?, phone: String?, countryCode: String?) {
+fun SmsVerificationScreen(
+    viewModel: SmsVerificationViewModel = koinViewModel(),
+    profileViewModel: ProfileViewModel = koinViewModel(),
+    navController: NavHostController?,
+    phone: String?,
+    countryCode: String?
+) {
     val state = viewModel.smsVerificationState.collectAsState().value
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -155,15 +164,32 @@ fun SmsVerificationScreen(viewModel: SmsVerificationViewModel = koinViewModel(),
                     is SmsVerificationScreenEffect.Verified -> {
                         when {
                             it.data != null && it.error == null -> {
-                                val screen = if (it.data.isUserExists == true) Screens.Chat else Screens.Registration
-                                navController?.navigate(screen.route)
+                                if (it.data.isUserExists == true) {
+                                    viewModel.addIntent(SmsVerificationScreenIntent.SaveToken(accessToken = it.data.accessToken, refreshToken = it.data.refreshToken))
+                                } else {
+                                    navController?.navigate(Screens.Registration.route)
+                                }
                             }
 
                             it.error != null -> {
-                                // todo remove
-                                navController?.navigate(Screens.Registration.withArgs(viewModel.smsVerificationState.value.phone))
                                 Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                             }
+                        }
+                    }
+
+                    SmsVerificationScreenEffect.TokensSaved -> {
+                        profileViewModel.addIntent(ProfileIntent.GetMe)
+                    }
+                }
+            }
+        }
+        scope.launch {
+            profileViewModel.profileEffects.collectLatest {
+                when (it) {
+                    is ProfileEffect.ProfileGot -> {
+                        when {
+                            it.data != null && it.error == null -> navController?.navigate(Screens.Chat.route)
+                            it.error != null && it.data == null -> Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

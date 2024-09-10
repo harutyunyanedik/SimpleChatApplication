@@ -1,31 +1,35 @@
 package com.example.mangochatapplication.presentation.di
 
-import com.example.mangochatapplication.common.utils.net.MangoChatWebService
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+import com.example.mangochatapplication.data.MangoChatNetworkAdapter
+import com.example.mangochatapplication.data.MangoChatNetworkPort
+import com.example.mangochatapplication.data.MangoChatRepositoryImpl
+import com.example.mangochatapplication.data.di.tokenDataStoreQualifierName
+import com.example.mangochatapplication.domain.MangoChatRepository
+import com.example.mangochatapplication.presentation.feature.auth.registation.RegistrationViewModel
+import com.example.mangochatapplication.presentation.feature.auth.smsverification.SmsVerificationViewModel
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import retrofit2.Retrofit
 
 val appModule = module {
-    single<MangoChatWebService> {
-        createWebService<MangoChatWebService>("https://plannerok.ru/")
+    single<MangoChatNetworkPort> {
+        MangoChatNetworkAdapter(get(), get())
     }
-}
 
-
-@OptIn(ExperimentalSerializationApi::class)
-inline fun <reified T> createWebService(baseUrl: String): T {
-    val json = Json {
-        ignoreUnknownKeys = true
-        isLenient = true
-        explicitNulls = false
+    single<MangoChatRepository> {
+        MangoChatRepositoryImpl(get())
     }
-    val retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
-        .build()
 
-    return retrofit.create(T::class.java)
+    viewModel<SmsVerificationViewModel> {
+        SmsVerificationViewModel(get(), get(qualifier = named(tokenDataStoreQualifierName)))
+    }
+
+    viewModel<RegistrationViewModel> {
+        RegistrationViewModel(get(), get(qualifier = named(tokenDataStoreQualifierName)))
+    }
+
+    viewModel<ProfileViewModel> {
+        ProfileViewModel(get())
+    }
 }

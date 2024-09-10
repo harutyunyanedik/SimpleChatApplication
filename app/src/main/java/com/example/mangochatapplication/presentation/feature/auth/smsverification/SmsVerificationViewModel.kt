@@ -1,10 +1,12 @@
 package com.example.mangochatapplication.presentation.feature.auth.smsverification
 
 import androidx.lifecycle.viewModelScope
-import com.example.mangochatapplication.data.model.checkcode.CheckCodeErrorDto
-import com.example.mangochatapplication.common.utils.net.utils.parseErrorBody
-import com.example.mangochatapplication.domain.MangoChatRepository
 import com.example.mangochatapplication.common.utils.Recourse
+import com.example.mangochatapplication.common.utils.net.utils.parseErrorBody
+import com.example.mangochatapplication.common.utils.safeLet
+import com.example.mangochatapplication.data.model.checkcode.CheckCodeErrorDto
+import com.example.mangochatapplication.data.tokenmanager.TokenDataStore
+import com.example.mangochatapplication.domain.MangoChatRepository
 import com.example.mangochatapplication.presentation.base.viewmodel.BaseSideEffectViewModel
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.screen.SmsVerificationScreenEffect
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.screen.SmsVerificationScreenIntent
@@ -19,7 +21,10 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 
 
-class SmsVerificationViewModel(private val repository: MangoChatRepository) : BaseSideEffectViewModel<SmsVerificationScreenIntent, SmsVerificationScreenState, SmsVerificationScreenEffect>() {
+class SmsVerificationViewModel(
+    private val repository: MangoChatRepository,
+    private val dataStore: TokenDataStore
+) : BaseSideEffectViewModel<SmsVerificationScreenIntent, SmsVerificationScreenState, SmsVerificationScreenEffect>() {
 
     override val states: MutableStateFlow<SmsVerificationScreenState> = MutableStateFlow(SmsVerificationScreenState())
     val smsVerificationState: StateFlow<SmsVerificationScreenState>
@@ -55,7 +60,7 @@ class SmsVerificationViewModel(private val repository: MangoChatRepository) : Ba
 
             is SmsVerificationScreenIntent.Verify -> {
                 viewModelScope.launch {
-                    repository.checkAuthCode(intent.phone, intent.code).collectLatest {
+                    repository.checkAuthCode(phone = intent.phone, code = intent.code).collectLatest {
 
                         when (it) {
                             is Recourse.Loading -> updateState(states.value.copy(isLoading = true))
@@ -79,6 +84,16 @@ class SmsVerificationViewModel(private val repository: MangoChatRepository) : Ba
                 if (intent.value.length == 6) {
                     states.value.phone?.let { phone ->
                         addIntent(SmsVerificationScreenIntent.Verify(phone, intent.value))
+                    }
+                }
+            }
+
+            is SmsVerificationScreenIntent.SaveToken -> {
+                safeLet(intent.accessToken, intent.refreshToken) { accessToken, refreshToken ->
+                    viewModelScope.launch {
+                        dataStore.saveAccessToken(accessToken)
+                        dataStore.saveRefreshToken(refreshToken)
+                        addSideEffect(SmsVerificationScreenEffect.TokensSaved)
                     }
                 }
             }

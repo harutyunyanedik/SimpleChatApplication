@@ -1,13 +1,17 @@
 package com.example.mangochatapplication.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.mangochatapplication.data.di.tokenDataStoreQualifierName
+import com.example.mangochatapplication.data.tokenmanager.TokenDataStore
 import com.example.mangochatapplication.presentation.feature.auth.editprofile.screen.EditProfileScreen
 import com.example.mangochatapplication.presentation.feature.auth.phonenumber.screen.PhoneNumberScreen
 import com.example.mangochatapplication.presentation.feature.auth.profile.screen.ProfileScreen
@@ -15,7 +19,15 @@ import com.example.mangochatapplication.presentation.feature.auth.registation.sc
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.screen.SmsVerificationScreen
 import com.example.mangochatapplication.presentation.feature.chat.screen.ChatScreen
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
+import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.jetbrains.annotations.TestOnly
+import org.koin.androidx.compose.get
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.qualifier.named
 
 @Composable
 fun ChatNavigation() {
@@ -47,17 +59,33 @@ fun ChatNavigation() {
 
 @TestOnly
 @Composable
-fun LaunchScreen(navController: NavHostController?) {
+fun LaunchScreen(navController: NavHostController?, profileViewModel: ProfileViewModel = koinViewModel()) {
 
-    val isUserExist = remember {
-        false
+    val tokenStore = get<TokenDataStore>(qualifier = named(tokenDataStoreQualifierName))
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            if (tokenStore.getAccessToken() != null) {
+                profileViewModel.addIntent(ProfileIntent.GetMe)
+            } else {
+                navController?.navigate(Screens.PhoneNumberScreen.route)
+            }
+        }
     }
 
-    if (isUserExist) {
-        navController?.navigate(Screens.Chat.route)
-    } else {
-        navController?.navigate(Screens.PhoneNumberScreen.route)
-    }
 
-//    navController?.navigate(Screens.PhoneNumberScreen.route)
+    SideEffect {
+        scope.launch {
+            profileViewModel.profileEffects.collectLatest {
+                when (it) {
+                    is ProfileEffect.ProfileGot -> {
+                        if (it.data != null && it.error == null) {
+                            navController?.navigate(Screens.Chat.route)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -12,4 +12,6 @@ sealed class SmsVerificationScreenIntent : BaseIntent {
     data class UpdatePinValue(val value: String) : SmsVerificationScreenIntent()
 
     data class Verify(val phone: String, val code: String) : SmsVerificationScreenIntent()
+
+    data class SaveToken(val accessToken: String?, val refreshToken: String?) : SmsVerificationScreenIntent()
 }

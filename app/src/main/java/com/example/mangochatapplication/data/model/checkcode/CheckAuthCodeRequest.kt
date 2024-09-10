@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CheckAuthCodeRequest(
-    @SerialName("code")
-    val code: String?,
     @SerialName("phone")
-    val phone: String?
+    val phone: String?,
+    @SerialName("code")
+    val code: String?
 )

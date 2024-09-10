@@ -7,4 +7,6 @@ sealed class SmsVerificationScreenEffect : BaseEffect {
     data class CodeSent(val isSuccess: Boolean = false) : SmsVerificationScreenEffect()
 
     data class Verified(val data: CheckAuthCode? = null, val error: String? = null) : SmsVerificationScreenEffect()
+
+    data object TokensSaved : SmsVerificationScreenEffect()
 }

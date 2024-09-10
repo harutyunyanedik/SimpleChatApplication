@@ -7,4 +7,6 @@ sealed class RegistrationEffect : BaseEffect {
     data class Registered(val data: Registration? = null, val error: String? = null) : RegistrationEffect()
 
     data class Validated(val isValid: Boolean) : RegistrationEffect()
+
+    data object TokensSaved : RegistrationEffect()
 }

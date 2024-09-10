@@ -37,6 +37,7 @@ daggerCompiler = "2.x"
 daggerCompilerVersion = "2.48.1"
 daggerVersion = "2.48.1"
 playServicesCastFramework = "21.5.0"
+datastorePreferences = "1.1.1"
 
 [libraries]
 accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "accompanistFlowlayout" }
@@ -54,6 +55,7 @@ androidx-material3-v111 = { module = "androidx.compose.material3:material3", ver
 androidx-material3-window-size = { module = "androidx.compose.material3:material3-window-size", version.ref = "material3WindowSizeClass" }
 androidx-material3-window-size-v111 = { module = "androidx.compose.material3:material3-window-size", version.ref = "material3WindowSizeClassVersion" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navVersion" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 glide-transformations = { module = "jp.wasabeef:glide-transformations", version.ref = "glideTransformations" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

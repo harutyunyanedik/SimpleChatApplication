@@ -65,13 +65,15 @@ fun LaunchScreen(navController: NavHostController?, profileViewModel: ProfileVie
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
-        scope.launch {
-            if (tokenStore.getAccessToken() != null) {
-                profileViewModel.addIntent(ProfileIntent.GetMe)
-            } else {
-                navController?.navigate(Screens.PhoneNumberScreen.route)
-            }
-        }
+//        scope.launch {
+//            if (tokenStore.getAccessToken() != null) {
+//                profileViewModel.addIntent(ProfileIntent.GetMe)
+//            } else {
+//                navController?.navigate(Screens.PhoneNumberScreen.route)
+//            }
+//        }
+
+        navController?.navigate(Screens.Chat.route)
     }
 
     SideEffect {

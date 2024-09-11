@@ -21,11 +21,13 @@ lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.04.01"
 lifecycleViewmodelCompose = "2.8.4"
+material = "1.7.1"
 material3 = "1.2.1"
 material3Version = "1.1.1"
 material3WindowSizeClass = "1.2.1"
 material3WindowSizeClassVersion = "1.1.1"
 materialIconsExtended = "1.6.8"
+navigationCompose = "2.8.0"
 navVersion = "2.7.2"
 retrofit = "2.9.0"
 serialization = "1.5.1"
@@ -50,12 +52,14 @@ androidx-browser = { module = "androidx.browser:browser", version.ref = "browser
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-material3-v111 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
 androidx-material3-window-size = { module = "androidx.compose.material3:material3-window-size", version.ref = "material3WindowSizeClass" }
 androidx-material3-window-size-v111 = { module = "androidx.compose.material3:material3-window-size", version.ref = "material3WindowSizeClassVersion" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navVersion" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-navigation-compose-v280 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
 glide-transformations = { module = "jp.wasabeef:glide-transformations", version.ref = "glideTransformations" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

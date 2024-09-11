@@ -20,7 +20,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 @Composable
-fun mangochatapplicationTheme(
+fun MangoChatApplicationTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

@@ -15,14 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mangochatapplication.presentation.navigation.ChatNavigation
-import com.example.mangochatapplication.presentation.theme.mangochatapplicationTheme
+import com.example.mangochatapplication.presentation.theme.MangoChatApplicationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            mangochatapplicationTheme {
+            MangoChatApplicationTheme {
                 Surface(
                     color = MaterialTheme.colorScheme.background,
                     modifier = Modifier
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    mangochatapplicationTheme {
+    MangoChatApplicationTheme {
         ChatNavigation()
     }
 }

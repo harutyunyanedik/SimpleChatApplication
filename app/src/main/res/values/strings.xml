@@ -19,4 +19,7 @@
     <string name="global_phone_number">Phone number</string>
     <string name="global_country_flag">Country flag</string>
     <string name="global_dropdown_arrow">Dropdown arrow</string>
+    <string name="global_edit">Edit</string>
+    <string name="global_me">Me</string>
+    <string name="global_profile">Profile</string>
 </resources>

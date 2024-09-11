@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
 fun PinView(
     modifier: Modifier = Modifier,
     length: Int = 6,
-    color: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
+    color: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.2f),
     borderColor: Color = Color.Transparent,
     boxWidth: Dp = 45.dp,
     boxHeight: Dp = 45.dp,
@@ -47,7 +47,7 @@ fun PinView(
     strokeSize: Dp = 1.dp,
     fontSize: TextUnit = 16.sp,
     fontFamily: FontFamily? = FontFamily.SansSerif,
-    fontColor: Color = MaterialTheme.colorScheme.background,
+    fontColor: Color = MaterialTheme.colorScheme.onBackground,
     value: String = EMPTY_STRING,
     disableKeypad: Boolean = false,
     mask: String? = null,

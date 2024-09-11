@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
@@ -18,11 +19,11 @@ import com.example.interviewalphab.R
 @Composable
 fun CenterTitledToolbar(
     title: String,
-    containerColor: Color = Color.Blue,
-    scrolledContainerColor: Color = Color.White,
-    navigationIconContentColor: Color = Color.White,
-    titleContentColor: Color = Color.White,
-    actionIconContentColor: Color = Color.White,
+    containerColor: Color = MaterialTheme.colorScheme.background,
+    scrolledContainerColor: Color = MaterialTheme.colorScheme.onBackground,
+    navigationIconContentColor: Color = MaterialTheme.colorScheme.onBackground,
+    titleContentColor: Color = MaterialTheme.colorScheme.onBackground,
+    actionIconContentColor: Color = MaterialTheme.colorScheme.onBackground,
     onBackClick: () -> Unit,
 ) {
     TopAppBar(

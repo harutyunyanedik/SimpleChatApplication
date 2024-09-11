@@ -34,24 +34,24 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import com.example.interviewalphab.R
 
 @Composable
 fun AvatarView(
     modifier: Modifier,
+    size: Dp = 142.dp,
     isAvatarEditMode: Boolean = false,
     avatar: String? = null,
     onAvatarChanged: (String?) -> Unit = {},
     defaultAvatar: @Composable (() -> Unit)? = null,
-    backgroundColor: Color = Color.Gray,
-    borderColor: Color = Color.Black,
-    nestedContainerPadding: PaddingValues = PaddingValues(6.dp),
-    defaultIconPadding: PaddingValues = PaddingValues(6.dp)
+    nestedContainerPadding: PaddingValues = PaddingValues(1.dp)
 ) {
     var pickedAvatar by remember { mutableStateOf(avatar) }
     var cachedImage by remember { mutableStateOf(pickedAvatar?.let { decodeBase64Image(it) }) }
-    val scope = rememberCoroutineScope()
 
     LaunchedEffect(pickedAvatar, avatar) {
         if (pickedAvatar != avatar && pickedAvatar != null) {
@@ -63,10 +63,10 @@ fun AvatarView(
 
     Box(
         modifier
-            .size(142.dp)
+            .size(size)
             .clip(CircleShape)
-            .background(backgroundColor)
-            .border(1.dp, borderColor, CircleShape),
+            .background(Color.Transparent)
+            .border(3.dp, MaterialTheme.colorScheme.secondary, CircleShape),
         contentAlignment = Alignment.Center
     ) {
         if (cachedImage != null) {
@@ -82,7 +82,7 @@ fun AvatarView(
                     .padding(nestedContainerPadding),
                 contentAlignment = Alignment.Center
             ) {
-                defaultAvatar?.invoke() ?: DefaultAvatarIcon()
+                defaultAvatar?.invoke() ?: DefaultAvatarIcon(size)
             }
         }
 
@@ -96,12 +96,11 @@ fun AvatarView(
 }
 
 @Composable
-fun DefaultAvatarIcon() {
+fun DefaultAvatarIcon(size: Dp) {
     Icon(
-        imageVector = Icons.Default.AccountCircle,
+        painter = painterResource(id = R.drawable.ic_person),
         contentDescription = "Default Avatar",
-        tint = Color.White,
-        modifier = Modifier.size(64.dp)
+        modifier = Modifier.size(size).padding(16.dp)
     )
 }
 

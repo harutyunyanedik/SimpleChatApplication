@@ -9,6 +9,7 @@ sealed class Screens(val route: String) {
     data object EditProfile : Screens("EditProfile")
     data object Registration : Screens("Registration")
     data object Chat : Screens("Chat")
+    data object Home : Screens("Home")
 
 
     fun withArgs(vararg args: String?): String {
@@ -16,6 +17,15 @@ sealed class Screens(val route: String) {
             append(route)
             args.forEach { args ->
                 append("/$args")
+            }
+        }
+    }
+
+    fun withArgsPath(vararg args: String?): String {
+        return buildString {
+            append("{$route}")
+            args.forEach { args ->
+                append("/{$args}")
             }
         }
     }

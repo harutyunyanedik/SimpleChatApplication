@@ -1,5 +1,7 @@
 package com.example.mangochatapplication.presentation.navigation
 
+//noinspection UsingMaterialAndMaterial3Libraries
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -39,19 +41,19 @@ fun ChatNavigation() {
         composable(route = Screens.PhoneNumberScreen.route) {
             PhoneNumberScreen(navController)
         }
-        composable(route = "${Screens.SmsVerificationScreen.route}/{phone}/{code}", arguments = listOf(navArgument("phone") { type = NavType.StringType })) {
+        composable(route = Screens.SmsVerificationScreen.withArgsPath("phone", "code"), arguments = listOf(navArgument("phone") { type = NavType.StringType })) {
             SmsVerificationScreen(phone = it.arguments?.getString("phone"), countryCode = it.arguments?.getString("code"), navController = navController)
         }
         composable(route = Screens.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navController = navController)
         }
         composable(route = Screens.EditProfile.route) {
             EditProfileScreen()
         }
         composable(route = Screens.Chat.route) {
-            ChatScreen()
+            ChatScreen(navController)
         }
-        composable(route = "${Screens.Registration.route}/{phone}", arguments = listOf(navArgument("phone") { type = NavType.StringType })) {
+        composable(route = Screens.Registration.withArgsPath("phone"), arguments = listOf(navArgument("phone") { type = NavType.StringType })) {
             RegistrationScreen(phone = it.arguments?.getString("phone"), navController = navController)
         }
     }

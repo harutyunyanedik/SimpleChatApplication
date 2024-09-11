@@ -13,20 +13,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavHostController
 import com.example.mangochatapplication.presentation.feature.chat.chatappbar.ChatAppBar
 import com.example.mangochatapplication.presentation.feature.chat.chatinput.ChatInput
-import com.example.mangochatapplication.presentation.shared.utils.activityViewModel
-import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
+import com.example.mangochatapplication.presentation.navigation.routes.Screens
 
 @Composable
-fun ChatScreen(profileViewModel: ProfileViewModel = activityViewModel()) {
+fun ChatScreen(navController: NavHostController?) {
 
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
-        ChatAppBar()
+        ChatAppBar(onUserProfilePictureClick = {
+            navController?.navigate(Screens.Profile.route)
+        })
         Column(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,

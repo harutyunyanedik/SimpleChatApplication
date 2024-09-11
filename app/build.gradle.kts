@@ -76,6 +76,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
 
+    implementation (libs.androidx.navigation.compose.v280)
+    implementation(libs.androidx.material)
+
     implementation(libs.compose)
     implementation(libs.glide.transformations)
 

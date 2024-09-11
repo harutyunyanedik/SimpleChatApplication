@@ -5,6 +5,7 @@ import com.example.mangochatapplication.data.MangoChatNetworkPort
 import com.example.mangochatapplication.data.MangoChatRepositoryImpl
 import com.example.mangochatapplication.data.di.tokenDataStoreQualifierName
 import com.example.mangochatapplication.domain.MangoChatRepository
+import com.example.mangochatapplication.presentation.feature.auth.phonenumber.PhoneNumberScreenViewModel
 import com.example.mangochatapplication.presentation.feature.auth.registation.RegistrationViewModel
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.SmsVerificationViewModel
 import com.example.mangochatapplication.presentation.feature.chat.ChatViewModel
@@ -36,5 +37,9 @@ val appModule = module {
 
     viewModel<ChatViewModel> {
         ChatViewModel()
+    }
+
+    viewModel<PhoneNumberScreenViewModel> {
+        PhoneNumberScreenViewModel()
     }
 }

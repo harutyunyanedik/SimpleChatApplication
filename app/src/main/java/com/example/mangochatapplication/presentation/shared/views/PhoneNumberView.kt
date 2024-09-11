@@ -46,17 +46,16 @@ import com.example.mangochatapplication.common.utils.EMPTY_STRING
 import com.example.mangochatapplication.presentation.shared.model.CountriesEnum
 
 @Composable
-fun PhoneNumber(
+fun PhoneNumberView(
+    selectedCountry: CountriesEnum,
+    phoneNumber: String,
     hint: String = stringResource(id = R.string.global_phone_number),
-    defaultCountry: CountriesEnum = CountriesEnum.RUSSIA,
+    errorText: String? = null,
     onPhoneNumberChanged: (String) -> Unit = {},
     onFocusChanged: (Boolean) -> Unit = {},
     onCountryChanged: (CountriesEnum) -> Unit = {},
 ) {
     val focusRequester = remember { FocusRequester() }
-    var phoneNumber by remember { mutableStateOf(EMPTY_STRING) }
-    var selectedCountry by remember { mutableStateOf(defaultCountry) }
-    var errorText by remember { mutableStateOf<String?>(null) }
     var isFocused by remember { mutableStateOf(false) }
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -77,18 +76,12 @@ fun PhoneNumber(
         OutlinedTextField(
             value = phoneNumber,
             onValueChange = {
-                phoneNumber = it
                 onPhoneNumberChanged(it)
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .onFocusChanged { focusState ->
                     isFocused = focusState.isFocused
-                    if (!isFocused) {
-                        validatePhoneNumber(phoneNumber, selectedCountry) {
-                            errorText = it
-                        }
-                    }
                     onFocusChanged(isFocused)
                 },
             label = {
@@ -109,14 +102,13 @@ fun PhoneNumber(
                 CountryCodeDropdown(
                     selectedCountry = selectedCountry,
                     onCountryCodeChanged = { newCountry ->
-                        selectedCountry = newCountry
                         onCountryChanged(newCountry)
                     }
                 )
             },
             trailingIcon = {
                 if (isFocused) {
-                    IconButton(onClick = { phoneNumber = EMPTY_STRING }) {
+                    IconButton(onClick = { onPhoneNumberChanged(EMPTY_STRING) }) {
                         Icon(Icons.Default.Clear, contentDescription = null)
                     }
                 }
@@ -125,7 +117,7 @@ fun PhoneNumber(
         )
         if (!errorText.isNullOrEmpty()) {
             Text(
-                text = errorText ?: EMPTY_STRING,
+                text = errorText,
                 color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.labelSmall,
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)
@@ -190,16 +182,5 @@ fun CountryCodeDropdown(
                 })
             }
         }
-    }
-}
-
-fun validatePhoneNumber(phoneNumber: String, country: CountriesEnum, onError: (String?) -> Unit) {
-    if (phoneNumber.isNotEmpty() && !country.regex.matches(phoneNumber)) {
-        val pattern = Regex("\\[0-9]\\{(\\d+)\\}").find(country.regex.pattern)
-        pattern?.groupValues?.get(1)?.let {
-            onError("Phone number must contain only $it numbers")
-        }
-    } else {
-        onError(null)
     }
 }

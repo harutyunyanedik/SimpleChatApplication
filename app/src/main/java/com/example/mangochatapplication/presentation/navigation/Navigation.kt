@@ -40,7 +40,7 @@ fun ChatNavigation() {
             LaunchScreen(navController)
         }
         composable(route = Screens.PhoneNumberScreen.route) {
-            PhoneNumberScreen(navController)
+            PhoneNumberScreen(navController = navController)
         }
         composable(route = Screens.SmsVerificationScreen.withArgsPath("phone", "code"), arguments = listOf(navArgument("phone") { type = NavType.StringType })) {
             SmsVerificationScreen(phone = it.arguments?.getString("phone"), countryCode = it.arguments?.getString("code"), navController = navController)

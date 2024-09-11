@@ -9,8 +9,6 @@ sealed class Screens(val route: String) {
     data object EditProfile : Screens("EditProfile")
     data object Registration : Screens("Registration")
     data object Chat : Screens("Chat")
-    data object Home : Screens("Home")
-
 
     fun withArgs(vararg args: String?): String {
         return buildString {

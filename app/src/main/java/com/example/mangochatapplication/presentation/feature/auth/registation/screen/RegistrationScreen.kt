@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -51,6 +50,7 @@ import com.example.mangochatapplication.presentation.shared.viewmodel.profile.Pr
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
 import com.example.mangochatapplication.presentation.shared.views.CenterTitledToolbar
+import com.example.mangochatapplication.presentation.shared.views.LoadingButton
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -119,7 +119,9 @@ fun RegistrationScreen(
             )
             Spacer(modifier = Modifier.height(32.dp))
         }
-        Button(modifier = Modifier
+        LoadingButton(
+            isLoading = state.isLoading == true,
+            modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 24.dp),
             onClick = {

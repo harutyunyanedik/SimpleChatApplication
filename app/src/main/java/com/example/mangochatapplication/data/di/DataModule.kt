@@ -8,7 +8,7 @@ import com.example.mangochatapplication.common.utils.net.utils.AuthAuthenticator
 import com.example.mangochatapplication.data.apiservice.AuthenticatedMangoWebService
 import com.example.mangochatapplication.data.apiservice.RefreshTokenService
 import com.example.mangochatapplication.data.apiservice.UnauthenticatedMangoChatWebService
-import com.example.mangochatapplication.data.tokenmanager.TokenDataStore
+import com.example.mangochatapplication.data.storage.TokenDataStore
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json

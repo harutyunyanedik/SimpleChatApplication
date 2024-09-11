@@ -35,24 +35,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.interviewalphab.R
+import com.example.mangochatapplication.common.utils.EMPTY_STRING
 import com.example.mangochatapplication.presentation.shared.model.CountriesEnum
 
 @Composable
 fun PhoneNumber(
-    hint: String = "Phone Number",
+    hint: String = stringResource(id = R.string.global_phone_number),
     defaultCountry: CountriesEnum = CountriesEnum.RUSSIA,
     onPhoneNumberChanged: (String) -> Unit = {},
     onFocusChanged: (Boolean) -> Unit = {},
     onCountryChanged: (CountriesEnum) -> Unit = {},
 ) {
     val focusRequester = remember { FocusRequester() }
-    var phoneNumber by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf(EMPTY_STRING) }
     var selectedCountry by remember { mutableStateOf(defaultCountry) }
     var errorText by remember { mutableStateOf<String?>(null) }
     var isFocused by remember { mutableStateOf(false) }
@@ -114,7 +116,7 @@ fun PhoneNumber(
             },
             trailingIcon = {
                 if (isFocused) {
-                    IconButton(onClick = { phoneNumber = "" }) {
+                    IconButton(onClick = { phoneNumber = EMPTY_STRING }) {
                         Icon(Icons.Default.Clear, contentDescription = null)
                     }
                 }
@@ -123,7 +125,7 @@ fun PhoneNumber(
         )
         if (!errorText.isNullOrEmpty()) {
             Text(
-                text = errorText ?: "",
+                text = errorText ?: EMPTY_STRING,
                 color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.labelSmall,
                 modifier = Modifier.padding(start = 16.dp, top = 4.dp)
@@ -147,7 +149,7 @@ fun CountryCodeDropdown(
         ) {
             Image(
                 painter = painterResource(id = selectedCountry.flag),
-                contentDescription = "Country flag",
+                contentDescription = stringResource(id = R.string.global_country_flag),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.size(width = 36.dp, height = 24.dp)
             )
@@ -159,7 +161,7 @@ fun CountryCodeDropdown(
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_arrow_down),
-                contentDescription = "Dropdown Arrow",
+                contentDescription = stringResource(id = R.string.global_dropdown_arrow),
                 modifier = Modifier
                     .size(16.dp)
                     .padding(top = 4.dp)
@@ -175,12 +177,12 @@ fun CountryCodeDropdown(
                     Row {
                         Image(
                             painter = painterResource(id = country.flag),
-                            contentDescription = "Country flag",
+                            contentDescription = stringResource(id = R.string.global_country_flag),
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.size(width = 36.dp, height = 24.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = country.title)
+                        Text(text = stringResource(id = country.titleResId))
                     }
                 }, onClick = {
                     onCountryCodeChanged(country)
@@ -193,7 +195,7 @@ fun CountryCodeDropdown(
 
 fun validatePhoneNumber(phoneNumber: String, country: CountriesEnum, onError: (String?) -> Unit) {
     if (phoneNumber.isNotEmpty() && !country.regex.matches(phoneNumber)) {
-        val pattern = Regex("\\[0-9\\]\\{(\\d+)\\}").find(country.regex.pattern)
+        val pattern = Regex("\\[0-9]\\{(\\d+)\\}").find(country.regex.pattern)
         pattern?.groupValues?.get(1)?.let {
             onError("Phone number must contain only $it numbers")
         }

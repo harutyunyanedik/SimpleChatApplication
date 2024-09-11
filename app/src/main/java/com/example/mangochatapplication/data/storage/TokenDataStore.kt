@@ -1,4 +1,4 @@
-package com.example.mangochatapplication.data.tokenmanager
+package com.example.mangochatapplication.data.storage
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

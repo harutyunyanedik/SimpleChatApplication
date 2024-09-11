@@ -35,11 +35,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.interviewalphab.R
+import com.example.mangochatapplication.common.utils.EMPTY_STRING
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.presentation.feature.auth.registation.RegistrationViewModel
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
@@ -89,12 +92,12 @@ fun RegistrationScreen(
             modifier = Modifier
                 .weight(1f, fill = false)
         ) {
-            CenterTitledToolbar("Registration", containerColor = MaterialTheme.colorScheme.background) {
+            CenterTitledToolbar(stringResource(id = R.string.global_registration), containerColor = MaterialTheme.colorScheme.background) {
                 navController?.navigateUp()
             }
             Spacer(modifier = Modifier.height(24.dp))
             RegistrationTextField(
-                state.phone ?: "", "phone", onValueChanged = {
+                state.phone ?: EMPTY_STRING, stringResource(id = R.string.global_phone), onValueChanged = {
                     viewModel.addIntent(RegistrationIntent.UserNameValueChanged(it))
                 },
                 focusRequester = focusRequester,
@@ -102,14 +105,14 @@ fun RegistrationScreen(
             )
             Spacer(modifier = Modifier.height(8.dp))
             RegistrationTextField(
-                state.nameValue ?: "", "name", state.nameErrorText, onValueChanged = {
+                state.nameValue ?: EMPTY_STRING, stringResource(id = R.string.global_name), state.nameErrorText, onValueChanged = {
                     viewModel.addIntent(RegistrationIntent.NameValueChanged(it))
                 },
                 focusRequester = focusRequester
             )
             Spacer(modifier = Modifier.height(8.dp))
             RegistrationTextField(
-                state.usernameValue ?: "", "username", state.usernameErrorText, onValueChanged = {
+                state.usernameValue ?: EMPTY_STRING, stringResource(id = R.string.global_username), state.usernameErrorText, onValueChanged = {
                     viewModel.addIntent(RegistrationIntent.UserNameValueChanged(it))
                 },
                 focusRequester = focusRequester
@@ -123,7 +126,7 @@ fun RegistrationScreen(
                 keyboardController?.hide()
                 viewModel.addIntent(RegistrationIntent.Validate)
             }) {
-            Text(text = "Register")
+            Text(text = stringResource(id = R.string.global_register))
         }
     }
 

@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">MangoChatApplication</string>
+
+    <string name="global_whats_your_phone_number">What\'s your \nphone \nnumber</string>
+    <string name="global_continue">Continue</string>
+    <string name="global_registration">Registration</string>
+    <string name="global_register">Register</string>
+    <string name="global_phone">Phone</string>
+    <string name="global_username">Username</string>
+    <string name="global_name">Name</string>
+    <string name="global_sms_verification_code_dent">Sms \nVerification \nCode is sent</string>
+    <string name="global_verify">Verify</string>
+    <string name="global_resend_code">Resend code</string>
+    <string name="global_resend_code_in">Resend code in</string>
+    <string name="global_armenia">Armenia</string>
+    <string name="global_russia">Russia</string>
+    <string name="global_usa">United States</string>
+    <string name="global_back">Back</string>
+    <string name="global_phone_number">Phone number</string>
+    <string name="global_country_flag">Country flag</string>
+    <string name="global_dropdown_arrow">Dropdown arrow</string>
 </resources>

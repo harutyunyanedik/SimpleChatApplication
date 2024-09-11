@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mangochatapplication.common.utils.EMPTY_STRING
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -38,7 +39,7 @@ import kotlinx.coroutines.launch
 fun PinView(
     modifier: Modifier = Modifier,
     length: Int = 6,
-    color: Color = MaterialTheme.colorScheme.onBackground,
+    color: Color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f),
     borderColor: Color = Color.Transparent,
     boxWidth: Dp = 45.dp,
     boxHeight: Dp = 45.dp,
@@ -47,7 +48,7 @@ fun PinView(
     fontSize: TextUnit = 16.sp,
     fontFamily: FontFamily? = FontFamily.SansSerif,
     fontColor: Color = MaterialTheme.colorScheme.background,
-    value: String = "",
+    value: String = EMPTY_STRING,
     disableKeypad: Boolean = false,
     mask: String? = null,
     isCursorVisible: Boolean = true,

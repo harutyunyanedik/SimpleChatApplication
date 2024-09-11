@@ -2,7 +2,7 @@ package com.example.mangochatapplication.common.utils.net.utils
 
 import com.example.mangochatapplication.data.apiservice.RefreshTokenService
 import com.example.mangochatapplication.data.model.refreshtoken.RefreshTokenRequest
-import com.example.mangochatapplication.data.tokenmanager.TokenDataStore
+import com.example.mangochatapplication.data.storage.TokenDataStore
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request

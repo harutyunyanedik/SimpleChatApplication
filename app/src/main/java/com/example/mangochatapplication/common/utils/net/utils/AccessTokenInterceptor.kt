@@ -1,6 +1,6 @@
 package com.example.mangochatapplication.common.utils.net.utils
 
-import com.example.mangochatapplication.data.tokenmanager.TokenDataStore
+import com.example.mangochatapplication.data.storage.TokenDataStore
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response

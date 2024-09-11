@@ -5,7 +5,7 @@ import com.example.mangochatapplication.common.utils.Recourse
 import com.example.mangochatapplication.common.utils.net.utils.parseErrorBody
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.data.model.checkcode.CheckCodeErrorDto
-import com.example.mangochatapplication.data.tokenmanager.TokenDataStore
+import com.example.mangochatapplication.data.storage.TokenDataStore
 import com.example.mangochatapplication.domain.MangoChatRepository
 import com.example.mangochatapplication.presentation.base.viewmodel.BaseSideEffectViewModel
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.screen.SmsVerificationScreenEffect

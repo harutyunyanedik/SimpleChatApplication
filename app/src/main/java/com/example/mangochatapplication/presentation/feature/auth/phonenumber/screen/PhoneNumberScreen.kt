@@ -19,10 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.interviewalphab.R
+import com.example.mangochatapplication.common.utils.EMPTY_STRING
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
 import com.example.mangochatapplication.presentation.shared.model.CountriesEnum
 import com.example.mangochatapplication.presentation.shared.views.PhoneNumber
@@ -33,7 +36,7 @@ fun PhoneNumberScreen(navController: NavHostController?) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     var isPhoneNumberValid = remember { false }
-    var phoneNumber = remember { "" }
+    var phoneNumber = remember { EMPTY_STRING }
     var selectedCountry = remember { CountriesEnum.RUSSIA }
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -55,7 +58,7 @@ fun PhoneNumberScreen(navController: NavHostController?) {
         ) {
             Spacer(modifier = Modifier.height(32.dp))
             Text(
-                text = "What's your \nphone \nnumber",
+                text = stringResource(id = R.string.global_whats_your_phone_number),
                 style = MaterialTheme.typography.displaySmall.copy(
                     fontWeight = FontWeight(700),
                     color = MaterialTheme.colorScheme.onPrimary
@@ -81,7 +84,7 @@ fun PhoneNumberScreen(navController: NavHostController?) {
                 }
             }
         ) {
-            Text(text = "Continue")
+            Text(text = stringResource(id = R.string.global_continue))
         }
     }
 }

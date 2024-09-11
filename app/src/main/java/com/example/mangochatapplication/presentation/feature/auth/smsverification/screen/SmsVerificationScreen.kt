@@ -24,10 +24,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.interviewalphab.R
+import com.example.mangochatapplication.common.utils.EMPTY_STRING
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.SmsVerificationViewModel
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
@@ -67,7 +70,7 @@ fun SmsVerificationScreen(
     @Composable
     fun VerificationCodeSentText() {
         Text(
-            text = "Sms \nVerification \nCode is sent",
+            text = stringResource(id = R.string.global_sms_verification_code_dent),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontWeight = FontWeight(700),
                 color = MaterialTheme.colorScheme.onPrimary
@@ -88,7 +91,7 @@ fun SmsVerificationScreen(
                 .fillMaxWidth()
                 .padding(bottom = 8.dp),
         ) {
-            Text(text = "Verify")
+            Text(text = stringResource(id = R.string.global_verify))
         }
     }
 
@@ -105,7 +108,7 @@ fun SmsVerificationScreen(
                 }
             }
         ) {
-            val text = if (state.resendTime == null) "Resend Code" else "Resend code in ${state.resendTime}"
+            val text = if (state.resendTime == null) stringResource(id = R.string.global_resend_code) else "${stringResource(id = R.string.global_resend_code_in)} ${state.resendTime}"
             Text(text = text)
         }
     }
@@ -137,7 +140,7 @@ fun SmsVerificationScreen(
                     viewModel.addIntent(SmsVerificationScreenIntent.UpdatePinValue(it))
                 },
                 isCursorVisible = true,
-                value = state.pinValue ?: ""
+                value = state.pinValue ?: EMPTY_STRING
             )
         }
         Column(
@@ -203,5 +206,5 @@ fun SmsVerificationScreen(
 @Preview
 @Composable
 fun SmsVerificationScreenPreview() {
-    SmsVerificationScreen(phone = "", countryCode = "", navController = null)
+    SmsVerificationScreen(phone = EMPTY_STRING, countryCode = EMPTY_STRING, navController = null)
 }

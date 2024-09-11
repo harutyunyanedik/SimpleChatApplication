@@ -11,7 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.mangochatapplication.data.di.tokenDataStoreQualifierName
-import com.example.mangochatapplication.data.tokenmanager.TokenDataStore
+import com.example.mangochatapplication.data.storage.TokenDataStore
 import com.example.mangochatapplication.presentation.feature.auth.editprofile.screen.EditProfileScreen
 import com.example.mangochatapplication.presentation.feature.auth.phonenumber.screen.PhoneNumberScreen
 import com.example.mangochatapplication.presentation.feature.auth.profile.screen.ProfileScreen
@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.TestOnly
 import org.koin.androidx.compose.get
-import org.koin.androidx.compose.koinViewModel
 import org.koin.core.qualifier.named
 
 @Composable

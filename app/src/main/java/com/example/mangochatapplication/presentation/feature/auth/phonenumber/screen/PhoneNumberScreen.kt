@@ -51,7 +51,6 @@ fun PhoneNumberScreen(viewModel: PhoneNumberScreenViewModel = koinViewModel(), n
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
                     keyboardController?.hide()
-                    focusManager.clearFocus()
                 })
             }
     ) {

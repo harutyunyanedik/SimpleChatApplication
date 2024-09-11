@@ -68,6 +68,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.activity.compose.v170)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.constraintlayout.compose)
+
 
     implementation(libs.androidx.foundation)
     implementation(libs.koin.androidx.compose)
@@ -78,6 +80,7 @@ dependencies {
 
     implementation (libs.androidx.navigation.compose.v280)
     implementation(libs.androidx.material)
+    implementation(libs.androidx.material.icons.extended)
 
     implementation(libs.compose)
     implementation(libs.glide.transformations)

@@ -21,6 +21,7 @@ import com.example.mangochatapplication.presentation.feature.auth.registation.sc
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.screen.SmsVerificationScreen
 import com.example.mangochatapplication.presentation.feature.chat.screen.ChatScreen
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.navigation.utils.navigateAndClearBackStack
 import com.example.mangochatapplication.presentation.shared.utils.activityViewModel
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
@@ -51,7 +52,7 @@ fun ChatNavigation() {
             EditProfileScreen()
         }
         composable(route = Screens.Chat.route) {
-            ChatScreen(navController)
+            ChatScreen(navController = navController)
         }
         composable(route = Screens.Registration.withArgsPath("phone"), arguments = listOf(navArgument("phone") { type = NavType.StringType })) {
             RegistrationScreen(phone = it.arguments?.getString("phone"), navController = navController)
@@ -71,7 +72,7 @@ fun LaunchScreen(navController: NavHostController?, profileViewModel: ProfileVie
             if (tokenStore.getAccessToken() != null) {
                 profileViewModel.addIntent(ProfileIntent.GetMe)
             } else {
-                navController?.navigate(Screens.PhoneNumberScreen.route)
+                navController?.navigateAndClearBackStack(Screens.PhoneNumberScreen.route)
             }
         }
     }
@@ -82,7 +83,7 @@ fun LaunchScreen(navController: NavHostController?, profileViewModel: ProfileVie
                 when (it) {
                     is ProfileEffect.ProfileGot -> {
                         if (it.data != null && it.error == null) {
-                            navController?.navigate(Screens.Chat.route)
+                            navController?.navigateAndClearBackStack(Screens.Chat.route)
                         }
                     }
                 }

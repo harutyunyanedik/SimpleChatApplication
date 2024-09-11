@@ -22,7 +22,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.interviewalphab.R
 import com.example.mangochatapplication.common.utils.EMPTY_STRING
@@ -42,7 +42,7 @@ import com.example.mangochatapplication.presentation.shared.views.AvatarView
 
 @Composable
 fun ProfileScreen(viewModel: ProfileViewModel = activityViewModel(), navController: NavHostController?) {
-    val state = viewModel.profileState.collectAsState().value
+    val state = viewModel.profileState.collectAsStateWithLifecycle().value
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,

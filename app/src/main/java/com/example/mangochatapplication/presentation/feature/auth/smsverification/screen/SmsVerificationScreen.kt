@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,12 +27,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.interviewalphab.R
 import com.example.mangochatapplication.common.utils.EMPTY_STRING
 import com.example.mangochatapplication.common.utils.safeLet
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.SmsVerificationViewModel
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.navigation.utils.navigateAndClearBackStack
 import com.example.mangochatapplication.presentation.shared.utils.activityViewModel
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
@@ -53,7 +54,7 @@ fun SmsVerificationScreen(
     phone: String?,
     countryCode: String?
 ) {
-    val state = viewModel.smsVerificationState.collectAsState().value
+    val state = viewModel.smsVerificationState.collectAsStateWithLifecycle().value
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -171,7 +172,7 @@ fun SmsVerificationScreen(
                                 if (it.data.isUserExists == true) {
                                     viewModel.addIntent(SmsVerificationScreenIntent.SaveToken(accessToken = it.data.accessToken, refreshToken = it.data.refreshToken))
                                 } else {
-                                    navController?.navigate(Screens.Registration.withArgs(phone))
+                                    navController?.navigateAndClearBackStack(Screens.Registration.withArgs("$countryCode$phone"))
                                 }
                             }
 
@@ -192,7 +193,8 @@ fun SmsVerificationScreen(
                 when (it) {
                     is ProfileEffect.ProfileGot -> {
                         when {
-                            it.data != null && it.error == null -> navController?.navigate(Screens.Chat.route)
+                            it.data != null && it.error == null -> navController?.navigateAndClearBackStack(Screens.Chat.route)
+
                             it.error != null && it.data == null -> Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     }

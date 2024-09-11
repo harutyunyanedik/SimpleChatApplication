@@ -168,7 +168,7 @@ fun SmsVerificationScreen(
                                 if (it.data.isUserExists == true) {
                                     viewModel.addIntent(SmsVerificationScreenIntent.SaveToken(accessToken = it.data.accessToken, refreshToken = it.data.refreshToken))
                                 } else {
-                                    navController?.navigate(Screens.Registration.route)
+                                    navController?.navigate(Screens.Registration.withArgs(phone))
                                 }
                             }
 

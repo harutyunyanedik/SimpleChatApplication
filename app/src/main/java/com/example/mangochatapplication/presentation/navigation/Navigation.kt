@@ -19,6 +19,7 @@ import com.example.mangochatapplication.presentation.feature.auth.registation.sc
 import com.example.mangochatapplication.presentation.feature.auth.smsverification.screen.SmsVerificationScreen
 import com.example.mangochatapplication.presentation.feature.chat.screen.ChatScreen
 import com.example.mangochatapplication.presentation.navigation.routes.Screens
+import com.example.mangochatapplication.presentation.shared.utils.activityViewModel
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileEffect
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileIntent
 import com.example.mangochatapplication.presentation.shared.viewmodel.profile.ProfileViewModel
@@ -59,7 +60,7 @@ fun ChatNavigation() {
 
 @TestOnly
 @Composable
-fun LaunchScreen(navController: NavHostController?, profileViewModel: ProfileViewModel = koinViewModel()) {
+fun LaunchScreen(navController: NavHostController?, profileViewModel: ProfileViewModel = activityViewModel()) {
 
     val tokenStore = get<TokenDataStore>(qualifier = named(tokenDataStoreQualifierName))
     val scope = rememberCoroutineScope()

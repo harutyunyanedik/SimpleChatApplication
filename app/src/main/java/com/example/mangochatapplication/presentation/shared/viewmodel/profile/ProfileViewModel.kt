@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val repository: MangoChatRepository) : BaseSideEffectViewModel<ProfileIntent, ProfileState, ProfileEffect>() {
 
     override val effects: Channel<ProfileEffect> = Channel()
     val profileEffects: Flow<ProfileEffect>
-        get() = effects.consumeAsFlow()
+        get() = effects.receiveAsFlow()
 
     override val states: MutableStateFlow<ProfileState> = MutableStateFlow(ProfileState())
     val profileState: StateFlow<ProfileState>

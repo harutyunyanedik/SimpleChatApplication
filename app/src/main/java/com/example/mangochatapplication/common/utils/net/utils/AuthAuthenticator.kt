@@ -27,14 +27,18 @@ class AuthAuthenticator(
                 tokenDataStore.getAccessToken()
             }
             val token = if (currentToken != updatedToken) updatedToken else {
-                val newSessionResponse = runBlocking { refreshTokenService.refreshToken(RefreshTokenRequest(tokenDataStore.getRefreshToken())) }
-                if (newSessionResponse.isSuccessful && newSessionResponse.body() != null) {
-                    newSessionResponse.body()?.let { body ->
+                val newSessionResponse = runBlocking {
+                    parseResponse {
+                        refreshTokenService.refreshToken(RefreshTokenRequest(tokenDataStore.getRefreshToken()))
+                    }
+                }
+                if (newSessionResponse is ApiWrapper.Success) {
+                    newSessionResponse.data?.let { data ->
                         runBlocking {
-                            body.accessToken?.let { tokenDataStore.saveAccessToken(it) }
-                            body.refreshToken?.let { tokenDataStore.saveRefreshToken(it) }
+                            data.accessToken?.let { tokenDataStore.saveAccessToken(it) }
+                            data.refreshToken?.let { tokenDataStore.saveRefreshToken(it) }
                         }
-                        body.accessToken
+                        data.accessToken
                     }
                 } else null
             }

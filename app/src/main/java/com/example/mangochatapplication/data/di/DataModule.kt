@@ -17,7 +17,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
-import org.koin.dsl.factory
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
@@ -33,7 +32,7 @@ val dataModule = module {
     single<Authenticator>(qualifier = named(authAuthenticatorQualifierName)) {
         AuthAuthenticator(get(qualifier = named(tokenDataStoreQualifierName)), get(qualifier = named(refreshTokenServiceQualifierName)))
     }
-    single<OkHttpClient.Builder>(qualifier = named(okHttpClientBuilderQualifierName)) {
+    factory<OkHttpClient.Builder>(qualifier = named(okHttpClientBuilderQualifierName)) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         OkHttpClient.Builder()
@@ -52,6 +51,7 @@ val dataModule = module {
 
     single<OkHttpClient>(qualifier = named(tokenRefreshClientQualifierName)) {
         get<OkHttpClient.Builder>(qualifier = named(okHttpClientBuilderQualifierName))
+            .addInterceptor(get<AccessTokenInterceptor>(qualifier = named(accessTokenInterceptorQualifierName)))
             .build()
     }
 

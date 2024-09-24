@@ -8,9 +8,8 @@ import com.example.chatapplication.common.utils.net.AuthAuthenticator
 import com.example.chatapplication.data.ChatNetworkAdapter
 import com.example.chatapplication.data.ChatNetworkPort
 import com.example.chatapplication.data.ChatRepositoryImpl
-import com.example.chatapplication.data.apiservice.AuthenticatedApiService
+import com.example.chatapplication.data.apiservice.ChatApiService
 import com.example.chatapplication.data.apiservice.RefreshTokenApiService
-import com.example.chatapplication.data.apiservice.UnauthenticatedChatApiService
 import com.example.chatapplication.data.storage.TokenDataStore
 import com.example.chatapplication.domain.ChatRepository
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -59,11 +58,6 @@ val dataModule = module {
             .build()
     }
 
-    single<OkHttpClient>(qualifier = named(publicClientQualifierName)) {
-        get<OkHttpClient.Builder>(qualifier = named(okHttpClientBuilderQualifierName))
-            .build()
-    }
-
     single<Retrofit.Builder> {
         val json = Json {
             ignoreUnknownKeys = true
@@ -73,10 +67,10 @@ val dataModule = module {
         Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
     }
 
-    single<AuthenticatedApiService> {
+    single<ChatApiService> {
         get<Retrofit.Builder>()
             .client(get<OkHttpClient>(qualifier = named(authenticatedClientQualifierName))).build()
-            .create(AuthenticatedApiService::class.java)
+            .create(ChatApiService::class.java)
     }
 
     single<RefreshTokenApiService>(qualifier = named(refreshTokenServiceQualifierName)) {
@@ -84,13 +78,9 @@ val dataModule = module {
             .client(get<OkHttpClient>(qualifier = named(tokenRefreshClientQualifierName))).build()
             .create(RefreshTokenApiService::class.java)
     }
-    single<UnauthenticatedChatApiService> {
-        get<Retrofit.Builder>()
-            .client(get<OkHttpClient>(qualifier = named(publicClientQualifierName))).build()
-            .create(UnauthenticatedChatApiService::class.java)
-    }
+
     single<ChatNetworkPort> {
-        ChatNetworkAdapter(get(), get())
+        ChatNetworkAdapter(get())
     }
 
     single<ChatRepository> {
@@ -102,7 +92,6 @@ internal const val authenticatedClientQualifierName = "AuthenticatedClient"
 internal const val refreshTokenServiceQualifierName = "RefreshTokenService"
 internal const val tokenDataStoreQualifierName = "TokenDataStore"
 internal const val okHttpClientBuilderQualifierName = "OkHttpClientBuilder"
-internal const val publicClientQualifierName = "PublicClient"
 internal const val tokenRefreshClientQualifierName = "TokenRefreshClient"
 internal const val authAuthenticatorQualifierName = "AuthAuthenticator"
 internal const val accessTokenInterceptorQualifierName = "AccessTokenInterceptor"

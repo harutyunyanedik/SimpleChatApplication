@@ -14,12 +14,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.chatapplication.data.di.tokenDataStoreQualifierName
 import com.example.chatapplication.data.storage.TokenDataStore
-import com.example.chatapplication.presentation.feature.auth.editprofile.screen.EditProfileScreen
-import com.example.chatapplication.presentation.feature.auth.phonenumber.screen.PhoneNumberScreen
-import com.example.chatapplication.presentation.feature.auth.profile.screen.ProfileScreen
-import com.example.chatapplication.presentation.feature.auth.registation.screen.RegistrationScreen
-import com.example.chatapplication.presentation.feature.auth.smsverification.screen.SmsVerificationScreen
 import com.example.chatapplication.presentation.feature.chat.screen.ChatScreen
+import com.example.chatapplication.presentation.feature.editprofile.screen.EditProfileScreen
+import com.example.chatapplication.presentation.feature.phonenumber.screen.PhoneNumberScreen
+import com.example.chatapplication.presentation.feature.profile.screen.ProfileScreen
+import com.example.chatapplication.presentation.feature.registation.screen.RegistrationScreen
+import com.example.chatapplication.presentation.feature.smsverification.screen.SmsVerificationScreen
 import com.example.chatapplication.presentation.navigation.routes.Screens
 import com.example.chatapplication.presentation.navigation.utils.navigateAndClearBackStack
 import com.example.chatapplication.presentation.shared.utils.activityViewModel

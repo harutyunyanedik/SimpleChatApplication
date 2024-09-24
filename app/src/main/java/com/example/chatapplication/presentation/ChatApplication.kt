@@ -1,7 +1,12 @@
 package com.example.chatapplication.presentation
 
 import android.app.Application
+import com.example.chatapplication.data.di.authenticatorModule
 import com.example.chatapplication.data.di.dataModule
+import com.example.chatapplication.data.di.dataStoreModule
+import com.example.chatapplication.data.di.httpClientModule
+import com.example.chatapplication.data.di.interceptorModule
+import com.example.chatapplication.data.di.repositoryModule
 import com.example.chatapplication.presentation.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +21,7 @@ class ChatApplication : Application() {
         startKoin {
             androidContext(this@ChatApplication)
             androidLogger(Level.DEBUG)
-            modules(dataModule, appModule)
+            modules(dataStoreModule, interceptorModule, authenticatorModule, httpClientModule, dataModule, repositoryModule, appModule)
         }
     }
 }

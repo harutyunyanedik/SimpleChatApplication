@@ -2,7 +2,7 @@ package com.example.chatapplication.presentation.shared.viewmodel.profile
 
 import androidx.lifecycle.viewModelScope
 import com.example.chatapplication.common.utils.net.model.Recourse
-import com.example.chatapplication.domain.ChatRepository
+import com.example.chatapplication.domain.repository.ChatRepository
 import com.example.chatapplication.presentation.base.viewmodel.BaseSideEffectViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow

@@ -24,7 +24,7 @@ class SendAuthCodeBoundResource(private val port: ChatNetworkPort, private val p
     }
 
     override fun fetchFromStorage(): Boolean? {
-        // this is for fetching data from local storage
         return super.fetchFromStorage()
+        //todo fetch data from local storage if needed
     }
 }

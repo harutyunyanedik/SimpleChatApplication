@@ -14,6 +14,7 @@ import com.example.chatapplication.data.model.sendcode.SendAuthCodeRequest
 class ChatNetworkAdapter(
     private val chatApiService: ChatApiService
 ) : ChatNetworkPort {
+
     override suspend fun sendAuthCode(phone: String): ApiWrapper<SendAuthCodeDto?> {
         return parseResponse {
             chatApiService.sendAuthCode(SendAuthCodeRequest(phone))

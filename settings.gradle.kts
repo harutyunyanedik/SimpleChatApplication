@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MangoChatApplication"
+rootProject.name = "ChatApplication"
 include(":app")
  

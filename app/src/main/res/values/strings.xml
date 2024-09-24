@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MangoChatApplication</string>
+    <string name="app_name">ChatApplication</string>
 
     <string name="global_whats_your_phone_number">What\'s your \nphone \nnumber</string>
     <string name="global_continue">Continue</string>

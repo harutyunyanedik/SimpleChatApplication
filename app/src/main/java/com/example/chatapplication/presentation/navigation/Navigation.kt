@@ -77,7 +77,7 @@ fun LaunchScreen(navController: NavHostController?, profileViewModel: ProfileVie
         }
     }
 
-    SideEffect {
+    LaunchedEffect(Unit) {
         scope.launch {
             profileViewModel.profileEffects.collectLatest {
                 when (it) {

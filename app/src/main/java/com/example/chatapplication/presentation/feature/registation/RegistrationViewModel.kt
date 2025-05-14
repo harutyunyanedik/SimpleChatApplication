@@ -3,7 +3,7 @@ package com.example.chatapplication.presentation.feature.registation
 import androidx.lifecycle.viewModelScope
 import com.example.chatapplication.common.utils.net.model.Recourse
 import com.example.chatapplication.common.utils.net.parseErrorBody
-import com.example.chatapplication.common.utils.safeLet
+import com.example.chatapplication.common.utils.extensions.safeLet
 import com.example.chatapplication.data.model.register.RegistrationErrorDto
 import com.example.chatapplication.data.storage.TokenDataStore
 import com.example.chatapplication.domain.repository.ChatRepository

@@ -31,7 +31,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.interviewalphab.R
 import com.example.chatapplication.common.utils.EMPTY_STRING
-import com.example.chatapplication.common.utils.safeLet
+import com.example.chatapplication.common.utils.extensions.safeLet
 import com.example.chatapplication.presentation.feature.smsverification.SmsVerificationViewModel
 import com.example.chatapplication.presentation.navigation.routes.Screens
 import com.example.chatapplication.presentation.navigation.utils.navigateAndClearBackStack

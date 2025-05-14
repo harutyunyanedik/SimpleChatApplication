@@ -4,6 +4,7 @@ import com.example.chatapplication.data.ChatNetworkPort
 import com.example.chatapplication.data.model.sendcode.SendAuthCodeDto
 import com.example.chatapplication.common.utils.net.model.ApiWrapper
 import com.example.chatapplication.common.utils.net.HttpBoundsResource
+import com.example.chatapplication.common.utils.net.model.FetchPolicy
 
 class SendAuthCodeBoundResource(private val port: ChatNetworkPort, private val phone: String) : HttpBoundsResource<ApiWrapper<SendAuthCodeDto?>, Boolean>() {
 

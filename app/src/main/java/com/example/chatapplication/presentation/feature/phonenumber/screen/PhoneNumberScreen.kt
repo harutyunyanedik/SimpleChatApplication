@@ -6,29 +6,25 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import com.example.chatapplication.common.utils.EMPTY_STRING
 import com.example.chatapplication.presentation.feature.phonenumber.PhoneNumberScreenViewModel
+import com.example.chatapplication.presentation.feature.test.GridViewAdvancedArrangement
 import com.example.chatapplication.presentation.navigation.routes.Screens
-import com.example.chatapplication.presentation.shared.views.PhoneNumberView
-import com.example.interviewalphab.R
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -38,6 +34,18 @@ fun PhoneNumberScreen(viewModel: PhoneNumberScreenViewModel = koinViewModel(), n
     val keyboardController = LocalSoftwareKeyboardController.current
     val state = viewModel.phoneNumberScreenState.collectAsStateWithLifecycle().value
     val scope = rememberCoroutineScope()
+
+    val items = remember {
+        mutableStateOf(listOf<String>())
+    }
+
+    LaunchedEffect(Unit) {
+        val list: MutableList<String> = mutableListOf()
+        for (i in 0..31) {
+            list.add(i.toString())
+        }
+        items.value = list
+    }
 
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -57,34 +65,36 @@ fun PhoneNumberScreen(viewModel: PhoneNumberScreenViewModel = koinViewModel(), n
                 .weight(1f, fill = false)
         ) {
             Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = stringResource(id = R.string.global_whats_your_phone_number),
-                style = MaterialTheme.typography.displaySmall.copy(
-                    fontWeight = FontWeight(700),
-                    color = MaterialTheme.colorScheme.onPrimary
-                ),
-            )
+//            Text(
+//                text = stringResource(id = R.string.global_whats_your_phone_number),
+//                style = MaterialTheme.typography.displaySmall.copy(
+//                    fontWeight = FontWeight(700),
+//                    color = MaterialTheme.colorScheme.onPrimary
+//                ),
+//            )
             Spacer(modifier = Modifier.height(32.dp))
-            PhoneNumberView(
-                selectedCountry = state.selectedCountry,
-                phoneNumber = state.phoneNumber ?: EMPTY_STRING,
-                errorText = state.error,
-                onPhoneNumberChanged = {
-                    viewModel.addIntent(PhoneNumberScreenIntent.PhoneNumberChanged(it))
-                }, onCountryChanged = {
-                    viewModel.addIntent(PhoneNumberScreenIntent.CountryChanged(it))
-                })
+            GridViewAdvancedArrangement(items.value)
+
+//            PhoneNumberView(
+//                selectedCountry = state.selectedCountry,
+//                phoneNumber = state.phoneNumber ?: EMPTY_STRING,
+//                errorText = state.error,
+//                onPhoneNumberChanged = {
+//                    viewModel.addIntent(PhoneNumberScreenIntent.PhoneNumberChanged(it))
+//                }, onCountryChanged = {
+//                    viewModel.addIntent(PhoneNumberScreenIntent.CountryChanged(it))
+//                })
         }
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            onClick = {
-                viewModel.addIntent(PhoneNumberScreenIntent.Validate)
-            }
-        ) {
-            Text(text = stringResource(id = R.string.global_continue))
-        }
+//        Button(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(bottom = 16.dp),
+//            onClick = {
+//                viewModel.addIntent(PhoneNumberScreenIntent.Validate)
+//            }
+//        ) {
+//            Text(text = stringResource(id = R.string.global_continue))
+//        }
     }
 
     SideEffect {

@@ -21,6 +21,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildFeatures {
+            viewBinding = true
+            //noinspection DataBindingWithoutKapt
+            dataBinding = true
+        }
     }
 
     buildTypes {

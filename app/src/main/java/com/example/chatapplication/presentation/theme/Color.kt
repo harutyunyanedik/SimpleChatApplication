@@ -1,5 +1,6 @@
 package com.example.chatapplication.presentation.theme
 
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -20,3 +21,15 @@ val color6 = Color(0xFF000C24)
 val color7 = Color(0xFF109122)
 val color8 = Color(0xFFF7d10E)
 val color9 = Color(0xFFe9044a)
+
+val DarkColorScheme = darkColorScheme(
+    background = color6,
+    onBackground = color1,
+    primary = color2,
+    onPrimary = color1,
+    secondary = color7,
+    onSecondary = color1,
+    tertiary = color3,
+    error = color9,
+    onError = color1
+)

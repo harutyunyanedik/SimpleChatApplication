@@ -12,6 +12,7 @@ import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.ui.UiComposable
 import androidx.fragment.app.Fragment
 import com.example.chatapplication.common.utils.extensions.composableView
+import com.example.chatapplication.presentation.theme.ChatApplicationTheme
 import kotlin.let
 
 /**
@@ -33,6 +34,9 @@ abstract class ComposeMainFragment : Fragment() {
 
         return requireContext().composableView {
             // todo add theme here
+            ChatApplicationTheme {
+
+            }
             ComposeFragmentView()
         }
     }

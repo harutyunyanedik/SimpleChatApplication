@@ -31,6 +31,8 @@ import com.example.chatapplication.common.utils.EMPTY_STRING
 import com.example.chatapplication.presentation.feature.phonenumber.PhoneNumberScreenViewModel
 import com.example.chatapplication.presentation.navigation.routes.Screens
 import com.example.chatapplication.presentation.shared.views.PhoneNumberView
+import com.example.chatapplication.presentation.theme.Theme
+import com.example.chatapplication.presentation.theme.spacing
 import com.example.interviewalphab.R
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -59,7 +61,7 @@ fun PhoneNumberScreen(viewModel: PhoneNumberScreenViewModel = koinViewModel(), n
         horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(Theme.spacing.medium)
             .background(MaterialTheme.colorScheme.background)
             .pointerInput(Unit) {
                 detectTapGestures(onTap = {
